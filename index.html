@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валентинка</title>
+    <link href="index.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1 class="header_text" id="questionText">Будеш моєю валентинкою?</h1>
+    </div>
+    <div class="gif_container">
+        <img id="mainGif" src="https://i.pinimg.com/originals/b1/68/e7/b168e76018c60521ebdad2a2199a0a42.gif">
+    </div>
+    <div class="buttons">
+        <button class="btn" id="yesButton" onclick="nextPage()">Так</button>
+        <button class="btn" id="noButton" onmouseover="moveButton()" onclick="changeImageAndText()">Ні</button>
+        <script>
+            var noButtonClicked = false;
+        
+            function nextPage() {
+                window.location.href = "yes.html";
+            }
+        
+            function changeImageAndText() {
+                if (!noButtonClicked) {
+                    document.getElementById('mainGif').src = "https://i.pinimg.com/originals/80/25/77/802577ab4091727300a48d8889537897.gif";
+                    document.getElementById('questionText').innerHTML = "Ти напевно не зрозумів... <br> ТИ будеш моєю валентинкою?";
+                    document.getElementById('noButton').innerHTML = "Так";
+                    noButtonClicked = true;
+                } else {
+                    moveButton();
+                }
+            }
+        
+            function moveButton() {
+                if (noButtonClicked) {
+                    var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth);
+                    var y = Math.random() * (window.innerHeight - document.getElementById('noButton').offsetHeight);
+        
+                    // Проверяем, чтобы кнопка не выходила за пределы экрана
+                    if (x < 0) {
+                        x = 0;
+                    }
+                    if (y < 0) {
+                        y = 0;
+                    }
+                    if (x + document.getElementById('noButton').offsetWidth > window.innerWidth) {
+                        x = window.innerWidth - document.getElementById('noButton').offsetWidth;
+                    }
+                    if (y + document.getElementById('noButton').offsetHeight > window.innerHeight) {
+                        y = window.innerHeight - document.getElementById('noButton').offsetHeight;
+                    }
+        
+                    document.getElementById('noButton').style.left = `${x}px`;
+                    document.getElementById('noButton').style.top = `${y}px`;
+                }
+            }
+        
+            // Добавляем обработчик события resize для пересчета координат при изменении размеров окна
+            window.addEventListener('resize', function() {
+                moveButton();
+            });
+        </script>
+        
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
